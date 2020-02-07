@@ -16,7 +16,6 @@ let timeRemaining = 0
 function startGame() {
     startButton.setAttribute("disabled", "true")
     inflateButton.removeAttribute("disabled")
-    currentPopCount = 0
     draw()
     startClock()
     setTimeout(stopGame, gameLength)
@@ -76,6 +75,7 @@ function stopGame() {
     if (currentPopCount > highestPopCount) {
         highestPopCount = currentPopCount
     }
+    currentPopCount = 0
     stopClock()
     drawClock()
     draw()
