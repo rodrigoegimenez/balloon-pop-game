@@ -10,25 +10,43 @@
 
 <body>
 
-    <div>
-        <button id="start-button" onclick="startGame()">Start Game!</button>
-    </div>
-    <button id="inflate-button" onclick="inflate()" disabled>
-        Inflate <span id="click-count"></span>
-    </button>
-    <div>
-        <span>Pop Count:</span>
-        <span id='pop-count'>0</span>
-    </div>
-    <div>
-        <span>Highest Score:</span>
-        <span id='high-score'>0</span>
-    </div>
-    <div>
-        <span>Time Remaining:</span>
-        <span id='countdown'>0</span>
-    </div>
-    <div id="balloon" class="balloon"></div>
+    <form id="player-form" onsubmit="setPlayer(event)">
+        <div>
+            <label for="playerName">Player Name:</label>
+            <input type="text" name="playerName" placeholder="Your Name Here" required>
+            <button type="submit">Ok</button>
+        </div>
+    </form>
+
+    <section id="game" class="hidden">
+        <div>
+            <button onclick="changePlayer()">Change Player</button>
+        </div>
+        <div>
+            <button id="start-button" onclick="startGame()">Start Game!</button>
+        </div>
+
+        <button id="inflate-button" onclick="inflate()" disabled>
+            Inflate <span id="click-count"></span>
+        </button>
+
+        <div>
+            <span>Pop Count:</span>
+            <span id='pop-count'>0</span>
+        </div>
+
+        <div>
+            <span>Highest Score:</span>
+            <span id='high-score'>0</span>
+        </div>
+
+        <div>
+            <span>Time Remaining:</span>
+            <span id='countdown'>0</span>
+        </div>
+
+        <div id="balloon" class="balloon"></div>
+    </section>
     <script src="main.js"></script>
 </body>
 
