@@ -11,7 +11,10 @@ let clockId = 0
 let timeRemaining = 0
 let currentPlayer = {}
 let redAngle = 0
+let players = []
 
+loadPlayers()
+drawScoreboard()
 
 /**
  * @param {string} id
@@ -29,6 +32,7 @@ function show(id) {
 
 function startGame() {
     hide("main-controls")
+    hide("scoreboard")
     show("game-controls")
     draw()
     startClock()
@@ -93,6 +97,7 @@ function stopGame() {
     console.log("Time's up!")
     hide("game-controls")
     show("main-controls")
+    show("scoreboard")
     height = 120
     width = 100
     clickCount = 0
@@ -103,13 +108,12 @@ function stopGame() {
     currentPopCount = 0
     stopClock()
     drawClock()
+    drawScoreboard()
     draw()
 }
 
 // #endregion
 
-let players = []
-loadPlayers()
 
 function setPlayer(event) {
     event.preventDefault()
@@ -125,6 +129,7 @@ function setPlayer(event) {
     form.reset()
     document.getElementById("game").classList.remove("hidden")
     form.classList.add("hidden")
+    drawScoreboard()
     draw()
 }
 
@@ -142,6 +147,27 @@ function loadPlayers() {
     if (playersData) {
         players = playersData
     }
+}
+
+function drawScoreboard() {
+    let template = ""
+
+    players.sort((p1, p2) => p2.topScore - p1.topScore)
+
+    players.forEach(player => {
+        template += `
+        <div class="d-flex space-between">
+            <span>
+                <i class="fas fa-user-circle"></i>
+                ${player.name}
+            </span>
+            <span>score: ${player.topScore}</span>
+        </div>
+        `
+    })
+    console.log("drawScoreboard")
+    console.log(template)
+    document.getElementById("players").innerHTML = template
 }
 
 
