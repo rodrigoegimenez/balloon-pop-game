@@ -1,14 +1,6 @@
-// BUTTONS
-
-let startButton = document.getElementById('start-button')
-let inflateButton = document.getElementById('inflate-button')
-
 // #region GAME LOGIC and DATA
-
-
-inflateButton.setAttribute("disabled", "true")
 let clickCount = 0
-let height = 120
+let height = 140
 let width = 100
 let inflationRate = 20
 let maxsize = 300
@@ -18,11 +10,26 @@ let gameLength = 5000
 let clockId = 0
 let timeRemaining = 0
 let currentPlayer = {}
+let redAngle = 0
 
+
+/**
+ * @param {string} id
+ */
+function hide(id) {
+    document.getElementById(id).classList.add("hidden")
+}
+
+/**
+ * @param {string} id
+ */
+function show(id) {
+    document.getElementById(id).classList.remove("hidden")
+}
 
 function startGame() {
-    startButton.setAttribute("disabled", "true")
-    inflateButton.removeAttribute("disabled")
+    hide("main-controls")
+    show("game-controls")
     draw()
     startClock()
     setTimeout(stopGame, gameLength)
@@ -45,18 +52,26 @@ function stopClock() {
 }
 function inflate() {
     clickCount++
-
     height += inflationRate
     width += inflationRate
+    console.log("Inflate!")
+    checkBalloonPop()
+    draw()
+}
 
+function checkBalloonPop() {
     if (height >= maxsize) {
+        // @ts-ignore
+        document.getElementById("pop-sound").play()
         currentPopCount++
         height = 0
         width = 0
+        let balloonElem = document.getElementById("balloon")
+        let randomNumber = randomIntFromInterval(0, 4)
+        let angle = randomNumber * 90 + redAngle
+        console.log(angle)
+        balloonElem.style.filter = "hue-rotate(" + angle + "deg)"
     }
-
-    console.log("Inflate!")
-    draw()
 }
 
 function draw() {
@@ -64,18 +79,20 @@ function draw() {
     let clickCountElem = document.getElementById("click-count")
     let popCountelem = document.getElementById("pop-count")
     let highestScore = document.getElementById("high-score")
+    let playerNameElem = document.getElementById("player-name")
 
     clickCountElem.innerText = clickCount.toString()
     baloonElem.style.height = height + "px"
     baloonElem.style.width = width + "px"
     popCountelem.innerText = currentPopCount.toString()
     highestScore.innerText = currentPlayer.topScore.toString()
+    playerNameElem.innerText = currentPlayer.name
 }
 
 function stopGame() {
     console.log("Time's up!")
-    inflateButton.setAttribute("disabled", "true")
-    startButton.removeAttribute("disabled")
+    hide("game-controls")
+    show("main-controls")
     height = 120
     width = 100
     clickCount = 0
@@ -125,4 +142,9 @@ function loadPlayers() {
     if (playersData) {
         players = playersData
     }
+}
+
+
+function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }

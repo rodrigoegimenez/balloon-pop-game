@@ -1,12 +1,227 @@
-body {
-    background-color: wheat;
+:root {
+    --primary: #f393fd;
+    --primary-dark: #b23ebe;
+    --primary-lighten: #ecacf3;
+    --bg: rgb(224, 217, 217);
+    --shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+    --corners: 6px;
+    --text: #1a1919;
+    --light: #fdfdfd;
+    --dark: #1a1919;
+    --dark-lighten: #2e2c2c;
 }
 
+body {
+    background-color: var(--bg);
+    font-family: 'Permanent Marker', cursive;
+    color: var(--text);
+    font-size: 16pt;
+}
+
+form {
+    margin: 0;
+}
+input, button {
+    font-size: inherit;
+}
+
+button {
+    background-color: var(--primary);
+    border-color: var(--primary-dark);
+    color: var(--light);
+    border-width: 1px;
+    border-radius: var(--corners);
+    box-shadow: var(--shadow);
+    text-transform: uppercase;
+    transition: all .2s ease;
+    padding: 1em;
+}
+
+button:hover {
+    background-color: var(--primary-dark);
+    cursor: pointer;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--text);
+    outline: none;
+}
+
+header {
+    margin: 1em 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+
+
 .balloon {
-    height: 120px;
+    height: 140px;
     width: 100px;
     background-color: blue;
     border-radius: 50%;
+    transition: all .2s ease;
+    animation: balloon-float 5s ease-in-out infinite;
+    align-self: flex-end;
+    margin: 0px auto;
+    box-shadow: inset -10px -10px 12px #ffffff4d, inset 10px 10px 12px #ffffff4d;
+    background: #430101;
+    background: linear-gradient(-45deg, #430101 0%, #fa1e01 60%, #ff0000 80%, #000000 100%); 
+}
+
+.balloon.green {
+    filter: hue-rotate(90deg);
+}
+
+.balloon.blue {
+    filter: hue-rotate(180deg);
+}
+
+.balloon.purple {
+    filter: hue-rotate(270deg);
+}
+
+@keyframes balloon-float {
+    0%, 100% {
+        transform: translateY(-25px) rotate(5deg);
+    }
+    50% {
+        transform: translate(0px) rotate(-5deg);
+    }
+}
+
+
+.card {
+    background-color: var(--light);
+    padding: 1em;
+    box-shadow: var(--shadow);
+    border-radius: var(--corners);
+}
+
+.game-container {
+    height: 300px;
+}
+
+.pump {
+    margin-top: 80px;
+    height: 130px;
+    width: 180px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+}
+
+.handle {
+    
+    height: 10px;
+    width: 80px;
+    background-color: var(--dark-lighten);
+    position: absolute;
+    top: -80px;
+    display: flex;
+    justify-content: center;
+    transition: all .05s linear;
+}
+
+
+.handle::after {
+    content: " ";
+    height: 80px;
+    width: 10px;
+    background-color: var(--dark-lighten);
+    display: block;
+}
+
+.pump:active .handle {
+    top: -20px;
+}
+
+.pump-box {
+    height: 130px;
+    width: 180px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: var(--primary-lighten);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.pump-box span {
+    background-color: var(--light);
+    padding: 10px;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+}
+
+.shadow {
+    filter: drop-shadow(var(--shadow));
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.mt-1 {
+    margin-top: .5em;
+}
+
+.mt-2 {
+    margin-top: 1em;
+}
+
+.mt-3 {
+    margin-top: 1.5em;
+}
+
+.mb-1 {
+    margin-bottom: .5em;
+}
+
+.mb-2 {
+    margin-bottom: 1em;
+}
+
+.mb-3 {
+    margin-bottom: 1.5em;
+}
+
+.bg-dark {
+    background-color: var(--dark);
+}
+
+.btn-dark {
+    background-color: var(--dark-lighten);
+    border-color: var(--dark);
+}
+
+.btn-dark:hover {
+    background-color: var(--dark);
+    border-color: var(--dark-lighten);
+}
+
+.light-text {
+    color: var(--light);
 }
 
 .hidden {
